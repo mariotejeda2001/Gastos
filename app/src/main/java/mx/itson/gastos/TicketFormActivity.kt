@@ -46,7 +46,7 @@ class TicketFormActivity : AppCompatActivity(), View.OnClickListener {
                     los nombres y parametros
                      */
 
-                    Ticket().save(this,product,price,store,date)
+                    //Ticket().save(this,product,price,store,date)
 
                 } catch(ex: Exception){
                     Toast.makeText(this,"Error al guardar el ticket", Toast.LENGTH_SHORT).show()
