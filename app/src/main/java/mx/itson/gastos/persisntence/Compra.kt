@@ -11,6 +11,7 @@ class Compra {
     var tienda: String = ""
     var fecha: String = ""
 
+    //constructor bacio para agregar datos uno por uno
     constructor()
     constructor(id: Int, producto: String, precio: Double, tienda: String, fecha: String) {
         this.id = id
@@ -38,7 +39,7 @@ class Compra {
             Log.d("Error saving compra", ex.message.toString())
         }
     }
-
+// funcion para devolver una lista de objetos tipo Compra
     fun list(context: Context): List<Compra> {
         // variable donde definimos el tipo de valor como lista mutable para filas nuevas en la base de datos
         var compras: MutableList<Compra> = ArrayList()
@@ -46,8 +47,9 @@ class Compra {
             val gastosDB = GastosDB(context, "GastosDB", null, 1)
             // constante con control a base de datos
             val dataBase: SQLiteDatabase = gastosDB.readableDatabase
+            //apuntamos a los resultados y mandamos la consulta
             val resultSet = dataBase.rawQuery("SELECT id, producto, precio, tienda, fecha FROM Compras", null)
-
+            //pasamos de fila en fila
             while (resultSet.moveToNext()) {
                 val compra = Compra(
                     resultSet.getInt(0),
@@ -62,6 +64,7 @@ class Compra {
         } catch (ex: Exception) {
             Log.d("Error getting compra", ex.message.toString())
         }
+        //finalizacion de la tarea
         return compras
     }
 }
