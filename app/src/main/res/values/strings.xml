@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Gastos</string>
+    <string name="txt_my_expenses">My Expenses</string>
+    <string name="txt_register_expense">Register new expense</string>
+    <string name="btn_confirm">Confirm</string>
+    <string name="txt_error_showing_purchases">Error showing Purchases</string>
+    <string name="hint_product">Product</string>
+    <string name="hint_price">price</string>
+    <string name="hint_store">store</string>
+    <string name="hint_purchase_date">Purchase date</string>
+    <string name="txt_saved_correctly">Expense saved correctly</string>
+    <string name="txt_error_saving_ticket">Error saving ticket</string>
+    <string name="txt_cannot_empty.">The fields cannot be empty.</string>
 </resources>

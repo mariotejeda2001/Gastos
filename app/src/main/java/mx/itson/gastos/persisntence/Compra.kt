@@ -4,7 +4,6 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.util.Log
-import mx.itson.gastos.persisntence.GastosDB
 class Compra {
     var id = 0
     var producto: String = ""
@@ -23,7 +22,9 @@ class Compra {
 
     fun save(context: Context, producto: String, precio: Double, tienda: String, fecha: String) {
         try {
+
             val gastosDB = GastosDB(context, "GastosDB", null, 1)
+            // constante con control a base de datos
             val dataBase: SQLiteDatabase = gastosDB.writableDatabase
             val values = ContentValues()
             values.put("producto", producto)
@@ -39,9 +40,11 @@ class Compra {
     }
 
     fun list(context: Context): List<Compra> {
+        // variable donde definimos el tipo de valor como lista mutable para filas nuevas en la base de datos
         var compras: MutableList<Compra> = ArrayList()
         try {
             val gastosDB = GastosDB(context, "GastosDB", null, 1)
+            // constante con control a base de datos
             val dataBase: SQLiteDatabase = gastosDB.readableDatabase
             val resultSet = dataBase.rawQuery("SELECT id, producto, precio, tienda, fecha FROM Compras", null)
 

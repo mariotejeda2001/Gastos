@@ -74,7 +74,7 @@ class TicketFormActivity : AppCompatActivity(), View.OnClickListener {
 
                     //Validar campos varios de primera
                     if(product.isBlank() || price.isBlank() || store.isBlank() || date.isBlank()){
-                        Toast.makeText(this, "Los campos no pueden estar vacios", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.txt_cannot_empty_), Toast.LENGTH_SHORT).show()
                         return
                     }
 
@@ -106,11 +106,11 @@ class TicketFormActivity : AppCompatActivity(), View.OnClickListener {
                         Log.d("VIBRACION", "Vibrando con Vibrator clásico (Android 7 o menor)")
                     }
 
-                    Toast.makeText(this, "Gasto guardado correctamente", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.txt_saved_correctly), Toast.LENGTH_SHORT).show()
                     finish()
 
                 } catch(ex: Exception){
-                    Toast.makeText(this,"Error al guardar el ticket", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,getString(R.string.txt_error_saving_ticket), Toast.LENGTH_SHORT).show()
 
                 }
             }
