@@ -2,6 +2,7 @@ package mx.itson.gastos
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Vibrator
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -10,6 +11,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import mx.itson.gastos.persisntence.Compra
 import java.time.LocalDateTime
 
 class TicketFormActivity : AppCompatActivity(), View.OnClickListener {
@@ -23,7 +25,7 @@ class TicketFormActivity : AppCompatActivity(), View.OnClickListener {
             insets
         }
         val btnConfirm = findViewById<View>(R.id.btn_confirm) as Button
-        btnConfirm.setOnClickListener {this}
+        btnConfirm.setOnClickListener(this)
     }
 
     override fun onClick(view: View) {
@@ -34,19 +36,27 @@ class TicketFormActivity : AppCompatActivity(), View.OnClickListener {
                     val price = findViewById<EditText>(R.id.product_price).text.toString()
                     val store = findViewById<EditText>(R.id.store_name).text.toString()
                     val date = LocalDateTime.now().toString()
-                    val intentTicketForm = Intent(this, MainActivity::class.java)
-                    startActivity(intentTicketForm)
 
-                    if (product.isBlank()||price.isBlank()||store.isBlank()){
+                    //Validar campos varios de primera
+                    if(product.isBlank() || price.isBlank() || store.isBlank()){
                         Toast.makeText(this, "Los campos no pueden estar vacios", Toast.LENGTH_SHORT).show()
                         return
                     }
 
-                    /*Aquí iría la parte de la entidad, solo hay que revisar que coincidan
-                    los nombres y parametros
-                     */
+                    //Guardar en la DB
+                    val priceDouble = price.toDouble()
+                    val compra = Compra()
+                    compra.save(this, product, priceDouble, store, date)
 
-                    //Ticket().save(this,product,price,store,date)
+                    //Vibrador
+                    val vibrador = getSystemService(VIBRATOR_SERVICE) as android.os.Vibrator
+                    if (vibrador.hasVibrator()){
+                        vibrador.vibrate(android.os.VibrationEffect.createOneShot(200, android.os.VibrationEffect.DEFAULT_AMPLITUDE))
+                    }
+                    Toast.makeText(this,"Gasto guardado correctamente", Toast.LENGTH_SHORT).show()
+
+                    //regresar a la pagina principal
+                    finish()
 
                 } catch(ex: Exception){
                     Toast.makeText(this,"Error al guardar el ticket", Toast.LENGTH_SHORT).show()
